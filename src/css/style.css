@@ -1,0 +1,19 @@
+
+#accordionSidebar{ 
+    /* background: #4CAF50; */
+    background-image: linear-gradient(to bottom,#0D47A1, #1976D2, #2596f1, #61c8f8);
+}
+
+ .nav-link span{
+    font-size: 15px !important;
+}
+.nav-link[data-toggle=collapse]::after{
+    content: none !important;
+}
+
+.nav-link::before{
+    content: none !important;
+}
+
+/* . é para classe e 
+# utiliza para id */

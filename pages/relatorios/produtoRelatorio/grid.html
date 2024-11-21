@@ -1,0 +1,31 @@
+<div class="produtoRelatorio">
+    <div class="col-md-6">
+        <h3>Lista de Produtos</h3>
+    </div>
+    <div class="col-md-12  text-right">
+        <button class="btn btn-success" ng-click="modal(null)">Adicionar</button>   
+    </div>
+</div>
+
+<!-- Por relatorio no aqui no grid -->
+
+<table class="table">
+    <thead> <!-- Cabeçalho da tabela -->
+        <tr>
+            <th>NOME</th>   
+            <th>CARGO</th>
+            <th>DATA</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Vou merchar quanod a api tiver funcionando  -->
+        <tr ng-repeat="x in grid">
+            <td>{{x.name}}</td>
+            <td>{{x.quantidade}}</td>
+            <td>
+            {{x.stock}}
+            </td>
+        </tr>
+    </tbody>
+</table>

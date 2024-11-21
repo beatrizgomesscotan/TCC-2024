@@ -1,0 +1,61 @@
+<form action="" method="post">
+    <label>Nome</label>
+    <input type="text" 
+        class="form-control" 
+        placeholder="Nome Completo" 
+         ng-model="forms.nome"> <!--ng-model ele manda o o nome e o valor-->
+    <br/>
+    <div class="row">
+         <div class="col-md-4"><!-- colocar todos forms   -->
+            <label>CPF</label>
+            <input type="text" 
+                class="form-control" 
+                placeholder="000.000.000-00" 
+                mask="999.999.999-99"
+                ng-model="forms.cpf">                
+        </div>
+        <div class="col-md-4">
+            <label>Telefone</label>
+            <input type="text" 
+                class="form-control" 
+                placeholder="(00) 00000-0000" 
+                mask="(99) 99999-9999"
+                ng-model="forms.telefone">                
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-4">
+            <label>CEP</label>
+            <input type="text" 
+                class="form-control" 
+                placeholder="00000-000" 
+                mask="99999-999"
+                ng-blur="getCep(forms.cep)"
+                ng-model="forms.cep">                
+        </div>
+        <div class="col-md-6">
+            <label>Rua</label>
+            <input type="text" 
+                class="form-control" 
+                placeholder="Rua Arapongas" 
+                ng-model="forms.logradouro">                
+        </div>
+        <div class="col-md-2">
+            <label>N.</label>
+            <input type="text" 
+                class="form-control" 
+                placeholder="123" 
+                ng-model="forms.numero">                
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label>Cidade</label>
+            <input type="text" 
+                class="form-control" 
+                placeholder="Cianorte" 
+                ng-model="forms.cidade">                
+        </div>
+    </div>
+</form>
