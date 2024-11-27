@@ -8,9 +8,6 @@ app.constant('config', {
     enableDebug: true
 })
 
-
-
-
 app.config([
     '$stateProvider', '$urlRouterProvider', 
     function($stateProvider, $urlRouterProvider, $scope){
@@ -20,19 +17,19 @@ app.config([
         $stateProvider
             .state('home', {
                 url: '/', //PRINCIPAL
-                templateUrl: './pages/home.html',
-               controller: 'homeController'
+                templateUrl: './pages/home.html'
             })
 
-
+            //Movimentos
              .state('pedido', {
                  url: '/pedido',
-                 templateUrl: './movimento/pedido.html',
+                 templateUrl: './pages/movimento/pedido/grid.html',
+                 controller:'pedidoController'
              })
-             .state('venda', {
-                 url: '/venda',
-                 templateUrl: './movimento/venda.html', 
-             })
+            //  .state('venda', {
+            //      url: '/venda',
+            //      templateUrl: './movimento/venda.html', 
+            //  })
 
             //Cadastros
             .state('cliente', {

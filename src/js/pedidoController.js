@@ -1,27 +1,85 @@
-app.controller('produtoController', function($scope, config, $ngConfirm, $http) {
+app.controller('pedidoController', function($scope, config, $ngConfirm, $http, $timeout) {
 
-    let module = 'produto';
-    $scope.grid = []; //Array vazio
+    let module = 'pedido';
+    $scope.clientes = []
+    $scope.produtos = []
+    $scope.usuarios = []
+    $scope.forms = {
+        clientes: null,
+        produtos: null,
+        usuarios: null
+    }
 
-    //fetch realiza uma requisição GET para carregar os dados do cliente $scope.grid com a resposta da API.
-    fetch(config.apiUrl + module) 
-    .then(rs => rs.json())
-    .then(rs => {
-        $scope.grid = rs; //rs pega os valores da api e retorna para grig[]
-        console.log("rs",rs)
-        console.log(`scope.grid: ${$scope.grid}`)  // aqui ele printa no console oq ele pegou
-        $scope.$apply(); // Força Atualiza a vizualizacao
-    })
+    const api = {
+        getClientes,
+        getProdutos,
+        getUsuarios,
+        getPedidos
+    }
+    
+    function activate() {
+        api.getClientes()
+        api.getProdutos()
+        api.getUsuarios()
+        api.getPedidos()
+    }
+    
+    activate()
 
+    function getClientes () {
+        fetch("http://localhost:8080/cliente")
+            .then(rs => rs.json())
+            .then(clientes => {
+                $scope.clientes = clientes; // Adiciona os clientes
+            })
+            .catch(err => console.error("Erro ao carregar clientes:", err));
+    }
 
-    //Inseri ou atualiza os dados do cliente
-    $scope.modal = function(data){   //tudo vai para o modal ele é o editar ou adicionar
+    function getProdutos () {
+        fetch("http://localhost:8080/produto")
+            .then(rs => rs.json())
+            .then(produtos => {
+                $scope.produtos = produtos; // Adiciona os produtos
+            })
+            .catch(err => console.error("Erro ao carregar produtos:", err));
+    }
+
+    function getUsuarios () {
+        fetch("http://localhost:8080/usuario")
+            .then(rs => rs.json())
+            .then(usuarios => {
+                $scope.usuarios = usuarios; // Adiciona os usuários
+            })
+            .catch(err => console.error("Erro ao carregar usuários:", err));
+    }
+
+    function getPedidos () {
+        fetch("http://localhost:8080/pedidos")
+            .then(rs => rs.json())
+            .then(pedidos => {
+                $scope.grid = pedidos
+                console.log('grid no getPedidos', $scope.grid)
+
+                $scope.$apply()
+            })
+    }
+
+    //Inseri ou atualiza os dados do cliente 
+    //Daqui para baixo é meu modal
+    $scope.modal = function(clientes, produtos, usuarios){   //tudo vai para o modal ele é o editar ou adicionar
+        const data = { clientes, produtos, usuarios }
         
-        if(data){
-            $scope.forms = data;  //quando eu clicar em editar o modal recebe meus dados 
+        if(clientes){
+            $scope.forms.clientes = clientes;  //quando eu clicar em editar o modal recebe meus dados 
+        } else if(produtos) {
+            $scope.forms.produtos = produtos;
+        } else if(usuarios) {
+            $scope.forms.usuarios = usuarios;
         } else {
             $scope.forms = {status: 1}; //só para botaõ radio não fica vazio,(se eu clicar um ele desativa o outro)
         }
+
+        console.log('forms', $scope.forms)
 
         //data == nullindica criação (método POST), enquanto a presença de dataindica edição (método PUT).
         //Após uma ação bem-sucedida, uma mensagem é exibida e a página é recarregada após 2 segundos para refletir as mudanças.
@@ -29,8 +87,8 @@ app.controller('produtoController', function($scope, config, $ngConfirm, $http) 
         let url = (data == null) ? config.apiUrl+module : config.apiUrl+module+'/'+data.id;
             console.log(data, "Cheguei aqui")
             $ngConfirm({
-                title: 'Editar',
-                contentUrl: './pages/cadastros/'+module+'/form.html', 
+                title: '',
+                contentUrl: './pages/movimento/'+module+'/form.html', 
                 scope: $scope, //aqui no escopo ele recebe  don(memoria do brauser)
                 theme: 'light', // tema
                 typeAnimated: true, // para ver se tem animação ou não

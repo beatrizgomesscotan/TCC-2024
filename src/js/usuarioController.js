@@ -1,55 +1,65 @@
-app.controller('usuarioController', function($scope, config, $ngConfirm) {
+app.controller('usuarioController', function($scope, config, $ngConfirm, $http) {
 
     let module = 'usuario';
+    $scope.grid = []; //Array vazio
 
-    $scope.grid = [];
-
-    fetch(config.apiUrl + module)
+    //fetch realiza uma requisição GET para carregar os dados do cliente $scope.grid com a resposta da API.
+    fetch(config.apiUrl + module) 
     .then(rs => rs.json())
     .then(rs => {
-        $scope.grid = rs;
-        $scope.$apply();
+        $scope.grid = rs; //rs pega os valores da api e retorna para grig[]
+        console.log("rs",rs)
+        console.log(`scope.grid: ${$scope.grid}`)  // aqui ele printa no console oq ele pegou
+        $scope.$apply(); // Força Atualiza a vizualizacao
     })
 
 
-    $scope.modal = function(data){
+    //Inseri ou atualiza os dados do cliente
+    $scope.modal = function(data){   //tudo vai para o modal ele é o editar ou adicionar
         
         if(data){
-            $scope.forms = data;
+            $scope.forms = data;  //quando eu clicar em editar o modal recebe meus dados 
         } else {
-            $scope.forms = {status: 1};
+            $scope.forms = {status: 1}; //só para botaõ radio não fica vazio,(se eu clicar um ele desativa o outro)
         }
 
+        //data == nullindica criação (método POST), enquanto a presença de dataindica edição (método PUT).
+        //Após uma ação bem-sucedida, uma mensagem é exibida e a página é recarregada após 2 segundos para refletir as mudanças.
         let method = (data == null) ? 'POST' : 'PUT';
         let url = (data == null) ? config.apiUrl+module : config.apiUrl+module+'/'+data.id;
-
+            console.log(data, "Cheguei aqui")
             $ngConfirm({
                 title: 'Editar',
-                contentUrl: './pages/cadastros/'+module+'/form.html',
-                scope: $scope,
-                theme: 'light',
-                typeAnimated: true,
-                closeAnimation: 'scale',
-                columnClass: 'small',
-                backgroundDismiss: false,
-                closeIcon: true,
+                contentUrl: './pages/cadastros/'+module+'/form.html', 
+                scope: $scope, //aqui no escopo ele recebe  don(memoria do brauser)
+                theme: 'light', // tema
+                typeAnimated: true, // para ver se tem animação ou não
+                closeAnimation: 'scale', // tipo de animação que vai ter no modal
+                columnClass: 'large',//tamanho do modal
+                backgroundDismiss: false,//se clicar fora vai fechar sozinho
+                closeIcon: true,//ter icone de fechar ou não (X)
                 buttons: {
                     save: {
                         text: 'Salvar',
                         btnClass: 'btn-green',
                         action: function(){
+                          console.log(data,"Data")
 
-                            fetch(url, {
-                                method: method,
+                          //aqui ele está bando pau , ele ta fazendo um GET ao invest do POST
+                          //pau em get , post e put , delite funciona
+                            fetch(url,{  //aqui ele chama a rota do back end
+                                method: method, // post ou put
                                 headers:{
-                                    "Content-Type":"application/json",
-                                    "Accept":"application/json"
+                                    "Content-Type":"application/json", // envia informação do tipo JSON para o backend modula o reder(CONTEUDO)
+                                    "Accept":"application/json" // aceita informação do tipo json
                                 },
-                                body: JSON.stringify($scope.forms)
-                            })
+                                body: JSON.stringify($scope.forms) // O body recebe todos os dados que eu passei,tudo que vem no forms
+                            },
+                            console.log($scope.forms)
+                        
+                        )
                             .then(response => response.json())
                             .then(rs => {
-                                
                                 if(rs.error){
                                     $scope.msg = rs.error;
                                     $scope.alert = 'alert-danger';
@@ -57,9 +67,7 @@ app.controller('usuarioController', function($scope, config, $ngConfirm) {
                                     $scope.msg = 'Cadastro realizado com sucesso';
                                     $scope.alert = 'alert-success';
 
-                                    setTimeout(() => {
-                                        window.location.reload();
-                                    }, 2000)
+                                         window.location.reload();
                                 }
 
                                 $scope.$apply();
@@ -82,6 +90,8 @@ app.controller('usuarioController', function($scope, config, $ngConfirm) {
         }
 
 
+
+        //Função de delite
     $scope.del = function(id){
         $ngConfirm({
             title: 'Atenção',
@@ -95,9 +105,9 @@ app.controller('usuarioController', function($scope, config, $ngConfirm) {
             backgroundDismiss: false,
             closeIcon: true,
             buttons: {
-                save: {
-                    text: 'Salvar',
-                    btnClass: 'btn-green',
+                yes: {
+                    text: 'Sim',
+                    btnClass: 'btn-red',
                     action: function(){
 
                         fetch( config.apiUrl+module+'/'+id, {
@@ -107,17 +117,12 @@ app.controller('usuarioController', function($scope, config, $ngConfirm) {
                                 "Accept":"application/json"
                             }
                         })
-                        .then(response => response.json())
-                        .then(rs => {
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 1000)
-                        })
+                        .then(() => window.location.reload())                                
                     }
                 },
                 cancel: {
                     text: 'Cancelar',
-                    btnClass: 'btn-red'
+                    btnClass: 'btn-default'
                 }
             }
         })
