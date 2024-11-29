@@ -16,8 +16,7 @@ app.controller('pedidoController', function($scope, config, $ngConfirm, $http, $
         let total = 0;
     
         // Verifica os produtos selecionados e calcula o total
-        if ($scope.pedido && $scope.pedido.produtosSelecionados && $scope.pedido.quantidade) {
-            console.log('joao', $scope.pedido.quantidades)
+        if ($scope.pedido && $scope.pedido.produtosSelecionados && $scope.pedido.quantidades) {
             $scope.pedido.produtosSelecionados.forEach(function (produto) {
                 const quantidade = $scope.pedido.quantidades[produto.id] ? $scope.pedido.quantidades[produto.id] : 0 ; // Quantidade padrão é 0
                 total += produto.precoCusto * quantidade;
