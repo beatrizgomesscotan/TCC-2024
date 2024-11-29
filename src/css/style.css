@@ -15,6 +15,13 @@
     content: none !important;
 }
 
+.dropdown-select{
+    height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+}
+
 
 /* . é para classe e 
 # utiliza para id */

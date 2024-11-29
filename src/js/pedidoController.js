@@ -1,5 +1,6 @@
 app.controller('pedidoController', function($scope, config, $ngConfirm, $http, $timeout) {
 
+
     let module = 'pedido';
     $scope.clientes = []
     $scope.produtos = []
@@ -9,6 +10,32 @@ app.controller('pedidoController', function($scope, config, $ngConfirm, $http, $
         produtos: null,
         usuarios: null
     }
+    
+
+    $scope.calcularTotalPedido = function () {
+        let total = 0;
+    
+        // Verifica os produtos selecionados e calcula o total
+        if ($scope.pedido && $scope.pedido.produtosSelecionados && $scope.pedido.quantidade) {
+            console.log('joao', $scope.pedido.quantidades)
+            $scope.pedido.produtosSelecionados.forEach(function (produto) {
+                const quantidade = $scope.pedido.quantidades[produto.id] ? $scope.pedido.quantidades[produto.id] : 0 ; // Quantidade padrão é 0
+                total += produto.precoCusto * quantidade;
+            });
+        }
+        return total; // Retorna o total calculado
+    };
+    
+    // tirar daqui
+    // $scope.produtos = [
+    //     { id: 1, name: 'Produto 1' },
+    //     { id: 2, name: 'Produto 2' },
+    //     { id: 3, name: 'Produto 3' },
+    //     { id: 4, name: 'Produto 4' }
+    // ];
+    
+    // $scope.selectedProdutos = [];
+    // até aqui
 
     const api = {
         getClientes,
@@ -28,11 +55,12 @@ app.controller('pedidoController', function($scope, config, $ngConfirm, $http, $
 
     function getClientes () {
         fetch("http://localhost:8080/cliente")
-            .then(rs => rs.json())
+            .then(rs => rs.json()) // Converte a resposta da API para JSON
             .then(clientes => {
-                $scope.clientes = clientes; // Adiciona os clientes
+                $scope.clientes = clientes; // Armazena os clientes no $scope
+                console.log(clientes)
             })
-            .catch(err => console.error("Erro ao carregar clientes:", err));
+            .catch(err => console.error("Erro ao carregar clientes:", err)); // Loga erros
     }
 
     function getProdutos () {

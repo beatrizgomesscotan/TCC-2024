@@ -1,37 +1,253 @@
 <form action="" method="post">
     <label>Cliente</label>
-    <select
+    <select 
         class="form-control" 
         placeholder="Nome Completo"
+       
     >
+   <option>Selecione</option> 
+        <option ng-repeat="x in clientes" value="{{x.id}}">{{x.nome}}</option>
     </select> <!--ng-model ele manda o o nome e o valor-->
+
     <br/>
-    <div class="row">
-         <div class="col-md-4"><!-- colocar todos forms   -->
-            <label>Cliente</label>
-            <input type="text" 
-                class="form-control" 
-                placeholder="000.000.000-00" 
-                mask="999.999.999-99"
-                ng-model="forms.cpf">                
-        </div>
-        <div class="col-md-4"><!-- colocar todos forms   -->
-            <label>Usuário</label>
-            <input type="text" 
-                class="form-control" 
-                placeholder="000.000.000-00" 
-                mask="999.999.999-99"
-                ng-model="forms.cpf">                
-        </div>
-        <div class="col-md-4">
-            <label>Produto</label>
-            <input type="text" 
-                class="form-control" 
-                placeholder="(00) 00000-0000" 
-                mask="(99) 99999-9999"
-                ng-model="forms.telefone">                
-        </div>
+
+    <label>Selecione o Usuário</label>
+    <select 
+        class="form-control" 
+        placeholder="Nome Completo"
+       
+    >
+   <option>Selecione</option> 
+        <option ng-repeat="x in usuarios" value="{{x.id}}">{{x.nome}}</option>
+    </select>
+</div>
+
+   <br/>
+
+   <div>
+
+    <div>
+        <label>Produto</label>
+        <label for="multiSelect">Escolha suas opções:</label>
+        <select 
+            class="form-control dropdown-select" 
+            id="multiSelect" 
+            multiple 
+            ng-model="pedido.produtosSelecionados" 
+            ng-options="produto as (produto.nome + ' - ' + produto.cor) for produto in produtos">
+        </select>
     </div>
+    
+    <br/>
+    
+    <div>
+        <label>Detalhes dos Produtos</label>
+        <table class="table" ng-if="pedido.produtosSelecionados.length > 0">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Preço Unitário</th>
+                    <th>Quantidade</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="produto in pedido.produtosSelecionados">
+                    <td>{{produto.nome}} - {{produto.cor}}</td>
+                    <td>R$ {{produto.precoCusto | number:2}}</td>
+                    <td>
+                        <input 
+                            type="number" 
+                            class="form-control" 
+                            ng-model="pedido.quantidades[produto.id]" 
+                            min="1" 
+                            placeholder="Quantidade" 
+                        />
+                    </td>
+                    <td>R$ {{(produto.precoCusto * pedido.quantidades[produto.id]) || 0 | number:2}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3"><strong>Total Pedido</strong></td>
+                    <td><strong>R$ {{calcularTotalPedido()}}</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    
+
+
+
+
+    <!-- <div>
+        <label>Produto</label>
+        <label for="multiSelect">Escolha suas opções:</label>
+        <select 
+            class="form-control dropdown-select" 
+            id="multiSelect" 
+            multiple 
+            ng-model="pedido.produtosSelecionados" 
+            ng-options="produto as produto.nome for produto in produtos">
+        </select>
+    </div>
+    
+    <br/>
+    
+    <div>
+        <label>Detalhes dos Produtos</label>
+        <table class="table" ng-if="pedido.produtosSelecionados.length > 0">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Preço Unitário</th>
+                    <th>Quantidade</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="produto in pedido.produtosSelecionados">
+                    <td>{{produto.nome}}</td>
+                    <td>R$ {{produto.precoCusto | number:2}}</td>
+                    <td>
+                        <input 
+                            type="number" 
+                            class="form-control" 
+                            ng-model="pedido.quantidades[produto.id]" 
+                            min="1" 
+                            placeholder="Quantidade" 
+                        />
+                    </td>
+                    <td>R$ {{(produto.precoCusto * pedido.quantidades[produto.id]) || 0 | number:2}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3"><strong>Total Geral</strong></td>
+                    <td><strong>R$ {{calcularTotalGeral() | number:2}}</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div> -->
+    
+
+
+
+
+    <!-- <div>
+        <label>Produto</label>
+        <label for="multiSelect">Escolha suas opções:</label>
+        <select 
+            class="form-control dropdown-select" 
+            id="multiSelect" 
+            multiple 
+            ng-model="pedido.produtosSelecionados" 
+            ng-options="produto as produto.nome for produto in produtos">
+        </select>
+    </div>
+    
+    <br/>
+    
+    <div>
+        <label>Detalhes dos Produtos</label>
+        <table class="table" ng-if="pedido.produtosSelecionados.length > 0">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Preço Unitário</th>
+                    <th>Quantidade</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="produto in pedido.produtosSelecionados">
+                    <td>{{produto.nome}}</td>
+                    <td>R$ {{produto.precoCusto | number:2}}</td>
+                    <td>
+                        <input 
+                            type="number" 
+                            class="form-control" 
+                            ng-model="pedido.quantidades[produto.id]" 
+                            min="1" 
+                            placeholder="Quantidade" 
+                        />
+                    </td>
+                    <td>R$ {{(produto.precoCusto * pedido.quantidades[produto.id]) || 0 | number:2}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3"><strong>Total Geral</strong></td>
+                    <td><strong>R$ {{calcularTotalGeral() | number:2}}</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div> -->
+    
+
+    <!-- <div>  ESSE DEU BOM TAMBEM MAIS FALTA QUANTIDADE
+        <label>Produto</label>
+        <label for="multiSelect">Escolha suas opções:</label>
+        <select 
+            class="form-control dropdown-select" 
+            id="multiSelect" 
+            multiple 
+            ng-model="pedido.produtosSelecionados" 
+            ng-options="produto as produto.nome for produto in produtos">
+        </select>
+    </div>
+    
+    <br/>
+    
+    <div>
+        <label>Quantidades dos Produtos</label>
+        <table class="table" ng-if="pedido.produtosSelecionados.length > 0">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Preço Unitário</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="produto in pedido.produtosSelecionados">
+                    <td>{{produto.nome}}</td>
+                    <td>
+                        <input 
+                            type="number" 
+                            class="form-control" 
+                            ng-model="pedido.quantidades[produto.id]" 
+                            min="1" 
+                            placeholder="Quantidade" 
+                        />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div> -->
+    
+
+
+
+<!--  CODIGO CORRETO
+    <label>Produto</label>
+    <label for="multiSelect">Escolha suas opções:</label>
+    <select class="form-control dropdown-select" id="multiSelect" multiple>
+        <option ng-repeat="x in produtos">{{x.nome}}</option>
+    </select> -->
+
+
+
+    <!-- <div ng-controller="pedidoController">
+        <ui-select multiple ng-model="selectedProdutos" theme="bootstrap">
+          <ui-select-match placeholder="Selecione os produtos">{{$item.name}}</ui-select-match>
+          <ui-select-choices repeat="produto.id as produto in produtos | filter: $select.search">
+            <div ng-bind="produto.name"></div>
+          </ui-select-choices>
+        </ui-select>
+    </div> -->
+
+  
     <br/>
     <div class="row">
         <div class="col-md-4">
