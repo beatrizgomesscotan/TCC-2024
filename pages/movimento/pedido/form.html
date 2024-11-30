@@ -3,9 +3,11 @@
     <select 
         class="form-control" 
         placeholder="Nome Completo"
+        ng-model="clienteSelecionado"
+        ng-change="pegarIdCliente()"
        
     >
-   <option>Selecione</option> 
+   <option value="" disabled>Selecione</option> 
         <option ng-repeat="x in clientes" value="{{x.id}}">{{x.nome}}</option>
     </select> <!--ng-model ele manda o o nome e o valor-->
 
@@ -15,9 +17,10 @@
     <select 
         class="form-control" 
         placeholder="Nome Completo"
-       
+        ng-model="usuarioSelecionado"
+        ng-change="pegaIdUsuario()" 
     >
-   <option>Selecione</option> 
+   <option value="" disabled>Selecione</option> 
         <option ng-repeat="x in usuarios" value="{{x.id}}">{{x.nome}}</option>
     </select>
 </div>
@@ -34,7 +37,11 @@
             id="multiSelect" 
             multiple 
             ng-model="pedido.produtosSelecionados" 
-            ng-options="produto as (produto.nome + ' - ' + produto.cor) for produto in produtos">
+            ng-options="produto as (produto.nome + ' - ' + produto.cor) for produto in produtos"
+            
+            >
+            
+
         </select>
     </div>
     
@@ -248,40 +255,4 @@
     </div> -->
 
   
-    <br/>
-    <div class="row">
-        <div class="col-md-4">
-            <label>Quantidade total</label>
-            <input type="text" 
-                class="form-control" 
-                placeholder="00000-000" 
-                mask="99999-999"
-                ng-blur="getCep(forms.cep)"
-                ng-model="forms.cep">                
-        </div>
-        <div class="col-md-6">
-            <label>Valor Total</label>
-            <input type="text" 
-                class="form-control" 
-                placeholder="Rua Arapongas" 
-                ng-model="forms.logradouro">                
-        </div>
-        <div class="col-md-2">
-            <label>N.</label>
-            <input type="text" 
-                class="form-control" 
-                placeholder="123" 
-                maxlength="5"
-                ng-model="forms.numero">                
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <label>Cidade</label>
-            <input type="text" 
-                class="form-control" 
-                placeholder="Cianorte" 
-                ng-model="forms.cidade">                
-        </div>
-    </div>
 </form>

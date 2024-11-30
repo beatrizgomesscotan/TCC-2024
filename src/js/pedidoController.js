@@ -1,7 +1,7 @@
 app.controller('pedidoController', function($scope, config, $ngConfirm, $http, $timeout) {
 
 
-    let module = 'pedido';
+    let module = 'pedidos';
     $scope.clientes = []
     $scope.produtos = []
     $scope.usuarios = []
@@ -10,11 +10,20 @@ app.controller('pedidoController', function($scope, config, $ngConfirm, $http, $
         produtos: null,
         usuarios: null
     }
+    $scope.usuarioSelecionado = null
     
+    $scope.pegaIdUsuario = function(){
+
+            console.log('usuarioSelecionado', $scope.usuarioSelecionado)
+    }
+
+    $scope.clienteSelecionado = null
+
 
     $scope.calcularTotalPedido = function () {
         let total = 0;
-    
+     
+        console.log($scope.pedido.produtosSelecionados)
         // Verifica os produtos selecionados e calcula o total
         if ($scope.pedido && $scope.pedido.produtosSelecionados && $scope.pedido.quantidades) {
             $scope.pedido.produtosSelecionados.forEach(function (produto) {
@@ -93,29 +102,20 @@ app.controller('pedidoController', function($scope, config, $ngConfirm, $http, $
 
     //Inseri ou atualiza os dados do cliente 
     //Daqui para baixo é meu modal
-    $scope.modal = function(clientes, produtos, usuarios){   //tudo vai para o modal ele é o editar ou adicionar
-        const data = { clientes, produtos, usuarios }
-        
-        if(clientes){
-            $scope.forms.clientes = clientes;  //quando eu clicar em editar o modal recebe meus dados 
-        } else if(produtos) {
-            $scope.forms.produtos = produtos;
-        } else if(usuarios) {
-            $scope.forms.usuarios = usuarios;
-        } else {
-            $scope.forms = {status: 1}; //só para botaõ radio não fica vazio,(se eu clicar um ele desativa o outro)
-        }
+    $scope.modal = function(pedido){   //tudo vai para o modal ele é o editar ou adicionar
+        const data = pedido
+
 
         console.log('forms', $scope.forms)
 
         //data == nullindica criação (método POST), enquanto a presença de dataindica edição (método PUT).
         //Após uma ação bem-sucedida, uma mensagem é exibida e a página é recarregada após 2 segundos para refletir as mudanças.
         let method = (data == null) ? 'POST' : 'PUT';
-        let url = (data == null) ? config.apiUrl+module : config.apiUrl+module+'/'+data.id;
+        let url = (data == null) ? config.apiUrl+module : config.apiUrl+module+'/'+data.idPedido;
             console.log(data, "Cheguei aqui")
             $ngConfirm({
                 title: '',
-                contentUrl: './pages/movimento/'+module+'/form.html', 
+                contentUrl: './pages/movimento/pedido/form.html', 
                 scope: $scope, //aqui no escopo ele recebe  don(memoria do brauser)
                 theme: 'light', // tema
                 typeAnimated: true, // para ver se tem animação ou não
@@ -130,6 +130,27 @@ app.controller('pedidoController', function($scope, config, $ngConfirm, $http, $
                         action: function(){
                           console.log(data,"Data")
 
+
+                          //estou criando uma cosntante produtoId
+                          //o MAP  passa por todos os produtos e cria uma lista , e o return retorna os ID DOS Pordutos ,
+                          // a Variavel produtosId recebe o id dos produtos  (return)
+                          const produtosId = $scope.pedido.produtosSelecionados.map((produto) => {
+                            return produto.id
+                          })
+
+                          //Apos eu montar uma lista de produtos com id
+                          //Crio outro MAP que passa por cada id do outro MAP
+                          //Assim que ele vai passando por cada ID ele vai criando um objeto nomeproduto:id
+                          //Após isso a variavel Itens recebe esse obejto 
+                        
+                          const itens = produtosId.map((id) => {
+                            return{
+                                idProduto:id,
+                                quantidade:$scope.pedido.quantidades[id]
+                            }
+                          })
+
+
                           //aqui ele está bando pau , ele ta fazendo um GET ao invest do POST
                           //pau em get , post e put , delite funciona
                             fetch(url,{  //aqui ele chama a rota do back end
@@ -138,7 +159,13 @@ app.controller('pedidoController', function($scope, config, $ngConfirm, $http, $
                                     "Content-Type":"application/json", // envia informação do tipo JSON para o backend modula o reder(CONTEUDO)
                                     "Accept":"application/json" // aceita informação do tipo json
                                 },
-                                body: JSON.stringify($scope.forms) // O body recebe todos os dados que eu passei,tudo que vem no forms
+                                body: JSON.stringify(
+                                    {
+                                        idCliente:$scope.clienteSelecionado,
+                                        idUsuario:$scope.usuarioSelecionado,
+                                        itens:itens
+                                    }
+                                )
                             },
                             console.log($scope.forms)
                         
