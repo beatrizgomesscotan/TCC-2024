@@ -45,6 +45,12 @@ app.controller('clienteController', function($scope, config, $ngConfirm, $http) 
                         action: function(){
                           console.log(data,"Data")
 
+                          if (!$scope.clienteForm.$valid) {
+                            alert('Por favor, preencha todos os campos obrigatórios.');
+                            return false;
+                        } 
+                        
+                          
                           //aqui ele está bando pau , ele ta fazendo um GET ao invest do POST
                           //pau em get , post e put , delite funciona
                             fetch(url,{  //aqui ele chama a rota do back end

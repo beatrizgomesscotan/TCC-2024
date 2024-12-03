@@ -1,9 +1,10 @@
-<form action="" method="post">
+<form name="produtoForm" action="" method="post">
     <label>Nome</label>
     <input type="text" 
         class="form-control" 
         placeholder="Nome Produto" 
-        ng-model="forms.nome">
+        ng-model="forms.nome"
+        required>
     <br/>
 
     <div class="row">
@@ -12,22 +13,27 @@
             <input type="text" 
                 class="form-control" 
                 placeholder="Cor produto" 
-                ng-model="forms.cor">                
+                ng-model="forms.cor"
+                required>                
         </div>
         
         <div class="col-md-4">
             <label>Preço de Custo</label>
-            <input type="text" 
+            <input type="number" 
                 class="form-control" 
                 placeholder="R$00,00" 
-                ng-model="forms.precoCusto">                
+                ng-model="forms.precoCusto"
+                minlength="0"
+                required>                
         </div>
             <div class="col-md-4">
                 <label>Preço de Venda</label>
-                <input type="text" 
+                <input type="number" 
                     class="form-control" 
                     placeholder="R$00,00" 
-                    ng-model="forms.precoVenda">                
+                    ng-model="forms.precoVenda"
+                    minlength="0"
+                    required>                
             </div>
         </div>
     </div>   

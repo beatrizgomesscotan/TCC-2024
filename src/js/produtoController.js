@@ -45,6 +45,20 @@ app.controller('produtoController', function($scope, config, $ngConfirm, $http) 
                         action: function(){
                           console.log(data,"Data")
 
+                          // se não tiver o fomulário ou se o formulaio não for valido 
+                          if (!$scope.produtoForm || !$scope.produtoForm.$valid) {
+                            alert('Por favor, preencha todos os campos obrigatórios.');
+                            return false;
+                        }
+                        
+                        // Validação adicional para garantir que preços não sejam negativos
+                        if ($scope.forms.precoCusto < 0 || $scope.forms.precoVenda < 0) {
+                            alert('Os preços não podem ser negativos.');
+                            return false;
+                        }
+                        
+
+
                           //aqui ele está bando pau , ele ta fazendo um GET ao invest do POST
                           //pau em get , post e put , delite funciona
                             fetch(url,{  //aqui ele chama a rota do back end
