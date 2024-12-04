@@ -1,0 +1,27 @@
+<div class="Vendedores">
+    <div class="col-md-6">
+        <h3>Relatório de pedidos do Usuario</h3>
+    </div>
+    <div class="col-md-12  text-right">
+        <button class="btn btn-success" ng-click="modal(null)">Imprimir</button>   
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>NOME CLIENTE</th>
+            <th>PEDIDOS REALIZADOS</th>
+            <th>DATA DO ULTIMO PEDIDO</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Vou merchar quanod a api tiver funcionando  -->
+        <tr ng-repeat="x in grid">
+            <td>{{x.nome}}</td>
+            <td>{{x.numeroPedidos}}</td>
+            <td>{{x.ultimoPedidoRealizado}}</td>
+        </tr>
+    </tbody>
+</table>

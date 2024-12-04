@@ -54,16 +54,15 @@ app.config([
                 templateUrl: './pages/relatorios/produtoRelatorio/grid.html',
                 controller: 'produtoRelatorioController'
             })
-               .state('vendaRelatorio', {
-                url: '/vendaRelatorio',
-                templateUrl: './pages/relatorios/vendaRelatorio/grid.html',
-                controller: 'vendaRelatorioController'
+            .state('clienteRelatorio', {
+                url: '/clienteRelatorio',
+                templateUrl: './pages/relatorios/clienteRelatorio/grid.html',
+                controller: 'clienteRelatorioController'
             })
-
-            .state('vendedorRelatorio', {
-                url: '/vendedorRelatorio',
-                templateUrl: './pages/relatorios/vendedorRelatorio/grid.html',
-                controller: 'vendedorRelatorioController'
+            .state('usuarioRelatorio', {
+                url: '/usuarioRelatorio',
+                templateUrl: './pages/relatorios/usuarioRelatorio/grid.html',
+                controller: 'usuarioRelatorioController'
             })
             .state('about', {
                 url: '/about',
