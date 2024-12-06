@@ -50,16 +50,16 @@
         left: 500px;           /* Distância da borda esquerda */
         transform: translateY(-65%);  /* Ajuste fino para centralizar */
         width: 30px;          /* Tamanho do ícone (largura) */
-        height:30px;         /* Tamanho do ícone (altura) */
+        height:26px;         /* Tamanho do ícone (altura) */
     }
     
     .icone-cadeado{
         position: absolute;
         top: 50%;             /* Centraliza verticalmente */
-        left: 500px;           /* Distância da borda esquerda */
-        transform: translateY(100%);  /* Ajuste fino para centralizar */
-        width: 30x;          /* Tamanho do ícone (largura) */
-        height:30px;         /* Tamanho do ícone (altura) */
+        left: 495px;           /* Distância da borda esquerda */
+        transform: translateY(156%);  /* Ajuste fino para centralizar */
+        width: 27x;          /* Tamanho do ícone (largura) */
+        height:27px;         /* Tamanho do ícone (altura) */
     }
     
     .btn-entrar {

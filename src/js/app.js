@@ -17,7 +17,8 @@ app.config([
         $stateProvider
             .state('home', {
                 url: '/', //PRINCIPAL
-                templateUrl: './pages/home.html'
+                templateUrl: './pages/home.html',
+                controller: 'homeController'
             })
 
             //Movimentos

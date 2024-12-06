@@ -16,8 +16,8 @@
             <th>NOME CLIENTE</th>
             <th>NOME USUARIO</th>
             <th>ITENS PEDIDO</th>
-            <th>QTD. TOTAL</th>
-            <th>VALOR TOTAL</th>
+            <th style="text-align: center;">QTD. TOTAL</th>
+            <th style="text-align: center;">VALOR TOTAL</th>
         </tr>
     </thead>
     <tbody>
@@ -26,12 +26,12 @@
             <td>{{x.cliente.nome}}</td>
             <td>{{x.usuario.nome}}</td>
             <td>
-                <div ng-repeat="item in x.itens">
+                <div ng-repeat="item in x.itens" >
                     {{item.produto.id}} - {{item.produto.nome}}
                 </div>
             </td>
-            <td>{{x.quantidadeItens}}</td>
-            <td>{{x.valorTotal}}</td>
+            <td style="text-align: right; width:200;">{{x.quantidadeItens}}</td>
+            <td style="text-align: right; width:200;">{{x.valorTotal}}</td>
             
             
             <td width="180">
