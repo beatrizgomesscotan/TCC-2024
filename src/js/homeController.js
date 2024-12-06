@@ -5,10 +5,10 @@ app.controller('homeController', function ($scope, config, $ngConfirm, $http, $t
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Jun', 'Jul'],
         datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          label: 'Pedidos Reaizados',
+          data: [8, 19, 3, 7, 2, 4],
           borderWidth: 1
         }]
       },
@@ -27,10 +27,10 @@ app.controller('homeController', function ($scope, config, $ngConfirm, $http, $t
     new Chart(ctx2, {
       type: 'line',
       data: {
-        labels: ['Jane', 'Fev', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Maio', 'Jun'],
         datasets: [{
-          label: '# of Votes',
-          data: [1200, 100, 3000, 5, 2, 3],
+          label: 'Pedidos Realizados',
+          data: [1200, 100, 3000, 500, 800, 6000],
           borderWidth: 1
         }]
       },
