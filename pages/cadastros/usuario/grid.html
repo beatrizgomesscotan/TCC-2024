@@ -10,19 +10,18 @@
 <table class="table">
     <thead>
         <tr>
-            <th>NOME</th>
-            <th>CARGO</th>
-            <th>TELEFONE</th>
-
+            <th style=" width:200px;">NOME</th>
+            <th style=" width:200px;">CARGO</th>
+            <th style=" width:200px;">TELEFONE</th>
         </tr>
     </thead>
     <tbody>
         <!-- Vou merchar quanod a api tiver funcionando  -->
         <tr ng-repeat="x in grid">
-            <td style=" width:150;">{{x.nome}}</td>
-            <td style=" width:150;">{{x.cargo}}</td>
-            <td style=" width:150;">{{x.telefone}}</td>
-            <td width="180">
+            <td style=" width:200px;">{{x.nome}}</td>
+            <td style=" width:200px;">{{x.cargo}}</td>
+            <td style=" width:200px; text-align: end;">{{x.telefone}}</td>
+            <td width="180px">
                 <button 
                 ng-click="modal(x)" 
                  class="btn btn-info">  <!-- info é só a cor -->
