@@ -1,3 +1,57 @@
+<!-- <div class="cliente">
+    <div class="col-md-6">
+        <h3>Lista de Pedidos</h3>
+    </div>
+    <div class="col-md-12  text-right">
+        <div class="modal-pedido">
+            <button class="btn btn-success" ng-click="modal(x)">Adicionar</button>
+        </div>   
+    </div>
+</div>
+
+
+<table class="table ">
+    <thead>
+        <tr>
+            <th>NOME CLIENTE</th>
+            <th>NOME USUARIO</th>
+            <th>ITENS PEDIDO</th>
+            <th style="text-align: center;">QTD. TOTAL</th>
+            <th style="text-align: center;">VALOR TOTAL</th>
+        </tr>
+    </thead>
+    <tbody>
+        aqui é um loop de for Each onde o in é o loop ele pega tudo do grid e ponha em x 
+         <tr ng-repeat="x in grid">
+            <td>{{x.cliente.nome}}</td>
+            <td>{{x.usuario.nome}}</td>
+            <td>
+                <div ng-repeat="item in x.itens" >
+                    {{item.produto.id}} - {{item.produto.nome}}
+                </div>
+            </td>
+            <td style="text-align: right; width:200;">{{x.quantidadeItens}}</td>
+            <td style="text-align: right; width:200;">{{x.valorTotal}}</td>
+            
+            
+            <td width="180">
+                <button 
+                ng-click="modal(x)" 
+                 class="btn btn-info">  info é só a cor 
+                    Editar
+                </button>
+
+                <button 
+                ng-click="del(x.idPedido)" 
+                class="btn btn-danger">
+                    Excluir
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table> -->
+
+
 <div class="cliente">
     <div class="col-md-6">
         <h3>Lista de Pedidos</h3>
@@ -31,7 +85,7 @@
                 </div>
             </td>
             <td style="text-align: right; width:200;">{{x.quantidadeItens}}</td>
-            <td style="text-align: right; width:200;">{{x.valorTotal}}</td>
+            <td style="text-align: right; width:200;">{{ formatarMoeda(x.valorTotal) }}</td>
             
             
             <td width="180">

@@ -154,6 +154,8 @@ app.controller('pedidoController', function ($scope, config, $ngConfirm, $http, 
                         //depois verifico se ela não tem quantidade daquele produto especifico
                         //depois verifico se a quantidade não é menor que 0
 
+
+                        
                         for (let produto of $scope.pedido.produtosSelecionados) {
                             if (!$scope.pedido.quantidades || !$scope.pedido.quantidades[produto.id] || $scope.pedido.quantidades[produto.id] < 0) {
                                 alert("Por favor, preencha a quantidade para o produto: " + produto.nome + " antes de continuar.");
@@ -161,12 +163,14 @@ app.controller('pedidoController', function ($scope, config, $ngConfirm, $http, 
                             }
                         }
 
+                        
                         //estou criando uma cosntante produtoId
                         //o MAP  passa por todos os produtos e cria uma lista , e o return retorna os ID DOS Pordutos ,
                         // a Variavel produtosId recebe o id dos produtos  (return)
                         const produtosId = $scope.pedido.produtosSelecionados.map((produto) => {
                             return produto.id
                         })
+
 
                         //Apos eu montar uma lista de produtos com id
                         //Crio outro MAP que passa por cada id do outro MAP
@@ -281,6 +285,14 @@ app.controller('pedidoController', function ($scope, config, $ngConfirm, $http, 
             }
         })
     }
+
+    // $scope.formatarMoeda = function (valor) {
+    //     return Number(valor || 0).toLocaleString("pt-BR", {
+    //         style: "currency",
+    //         currency: "BRL",
+    //     });
+    // };
+    
 
 });
 
