@@ -97,7 +97,7 @@ $scope.gerarPDF = function () {
                    <thead>
                        <tr>
                            <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Nome do Produto</th>
-                           <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Quantidade Vendida</th>
+                           <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Quantidade De Pedidos</th>
                            <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Valor Total</th>
                        </tr>
                    </thead>
