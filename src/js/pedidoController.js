@@ -150,12 +150,9 @@ app.controller('pedidoController', function ($scope, config, $ngConfirm, $http, 
 
                         //crio um avaria produto e ela percorre por cada produto do meu pelo meu array  
                         // Verifica se todas as quantidades dos produtos selecionados foram preenchidas
-                        //primeiro verifico se a minha variavel produto não é nula ou seja el é nula pq não tem quantidade
+                        //primeiro verifico se a minha variavel produto não é nula ou seja ela é nula pq não tem quantidade
                         //depois verifico se ela não tem quantidade daquele produto especifico
                         //depois verifico se a quantidade não é menor que 0
-
-
-                        
                         for (let produto of $scope.pedido.produtosSelecionados) {
                             if (!$scope.pedido.quantidades || !$scope.pedido.quantidades[produto.id] || $scope.pedido.quantidades[produto.id] < 0) {
                                 alert("Por favor, preencha a quantidade para o produto: " + produto.nome + " antes de continuar.");
@@ -165,7 +162,7 @@ app.controller('pedidoController', function ($scope, config, $ngConfirm, $http, 
 
                         
                         //estou criando uma cosntante produtoId
-                        //o MAP  passa por todos os produtos e cria uma lista , e o return retorna os ID DOS Pordutos ,
+                        //o MAP  passa por todos os produtos e cria uma lista , e o return retorna os ID DOS Produtos ,
                         // a Variavel produtosId recebe o id dos produtos  (return)
                         const produtosId = $scope.pedido.produtosSelecionados.map((produto) => {
                             return produto.id
@@ -184,9 +181,6 @@ app.controller('pedidoController', function ($scope, config, $ngConfirm, $http, 
                             }
                         })
 
-
-                        //aqui ele está bando pau , ele ta fazendo um GET ao invest do POST
-                        //pau em get , post e put , delite funciona
                         fetch(url, {  //aqui ele chama a rota do back end
                             method: method, // post ou put
                             headers: {

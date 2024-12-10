@@ -335,7 +335,7 @@ app.controller('usuarioRelatorioController', function($scope, config, $ngConfirm
              // No return eu faço(...) que junta todos os valores de current e depois falo que quero editar o valor de ultimoPedidoRealizado, que é a data toda desformatada
              // Instancio ela formatando para a data de Portugal Brasil
              rs = rs.map((current) => {
-                 return { ...current, ultimoPedidoRealizado: new Date(current.ultimoPedidoRealizado).toLocaleDateString('pt-br') }
+                 return { ...current, ultimoPedidoRealizado: new Date(current.ultimoPedidoRealizado).toLocaleDateString('pt-br') } 
              })
              $scope.grid = rs;
              $scope.$apply();

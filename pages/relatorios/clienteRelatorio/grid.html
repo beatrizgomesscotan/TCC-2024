@@ -2,7 +2,7 @@
     <div class="col-md-10">
         <h3>Relatório de pedidos realizado pelo cliente</h3>
     </div>
-    <div class="col-md-12  text-right">
+    <div class="col-md-12  text-right mb-4">
         <button class="btn btn-success" ng-click="gerarPDF()">Baixar PDF</button>   
     </div>
 </div>
@@ -18,8 +18,8 @@
     <tbody>
         <!-- Vou merchar quanod a api tiver funcionando  -->
         <tr ng-repeat="x in grid">
-            <td>{{x.nomeCliente}}</td>
-            <td>{{x.totalPedidos}}</td>
+            <td style="width: 75%;">{{x.nomeCliente}}</td>
+            <td style="width: 25%; text-align: end;">{{x.totalPedidos}}</td>
         </tr>
     </tbody>
 </table>
