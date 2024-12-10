@@ -28,7 +28,7 @@ app.controller('pedidoController', function ($scope, config, $ngConfirm, $http, 
         if ($scope.pedido && $scope.pedido.produtosSelecionados && $scope.pedido.quantidades) {
             $scope.pedido.produtosSelecionados.forEach(function (produto) {
                 const quantidade = $scope.pedido.quantidades[produto.id] ? $scope.pedido.quantidades[produto.id] : 0; // Quantidade padrão é 0
-                total += produto.precoCusto * quantidade;
+                total += produto.precoVenda * quantidade;
             });
         }
         return total; // Retorna o total calculado

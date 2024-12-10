@@ -61,7 +61,7 @@
             <tbody>
                 <tr ng-repeat="produto in pedido.produtosSelecionados">
                     <td>{{produto.nome}} - {{produto.cor}}</td>
-                    <td>R$ {{produto.precoCusto | number:2}}</td>
+                    <td>R$ {{produto.precoVenda | number:2}}</td>
                     <td>
                         <input 
                             type="number" 
@@ -71,7 +71,7 @@
                             placeholder="Quantidade" 
                         />
                     </td>
-                    <td>R$ {{(produto.precoCusto * pedido.quantidades[produto.id]) || 0 | number:2}}</td>
+                    <td>R$ {{(produto.precoVenda * pedido.quantidades[produto.id]) || 0 | number:2}}</td>
                 </tr>
             </tbody>
             <tfoot>
