@@ -85,7 +85,7 @@ $scope.gerarPDF = function () {
                 <img src="${img.src}" style="width: 150px; height: auto; margin-right: 10px;">
                 <h1 style="margin: 0;">Relatório de Cliente</h1>
              </div>
-               <p>Data de Geração: ${new Date().toLocaleDateString('pt-br')}</p>
+               <p>Data de Geração: ${new Date().toLocaleString('pt-br')}</p>
                <table style="width: 100%; border-collapse: collapse; margin-top: 5px;">
                    <thead>
                        <tr>
@@ -114,8 +114,16 @@ $scope.gerarPDF = function () {
            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
        };
 
-       // Gera o PDF usando o HTML dinâmico
-       html2pdf().from(htmlContent).set(opt).save();
+         // Gera o PDF e conta página
+         html2pdf().from(htmlContent).set(opt).toPdf().get('pdf').then(function(pdf) {
+            var totalPages = pdf.internal.getNumberOfPages();
+            for (i = 1; i <= totalPages; i++) {
+                pdf.setPage(i);
+                pdf.setFontSize(10);
+                pdf.setTextColor(100);
+                pdf.text('Página ' + i + ' / ' + totalPages, (pdf.internal.pageSize.getWidth() / 2.3), (pdf.internal.pageSize.getHeight() - 0.8));
+            }
+        }).save();
    };
 
    img.onerror = function () {
